@@ -83,6 +83,11 @@ module.exports = {
           presets: [["@babel/preset-env", { targets: { esmodules: true } }]],
         },
       },
+      {
+        test: /\.(vert|frag)$/i,
+        exclude: /node_modules/,
+        use: "raw-loader",
+      },
     ],
   },
 };
