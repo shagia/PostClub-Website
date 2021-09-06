@@ -96,7 +96,7 @@ module.exports = {
             loader: "file-loader",
             options: {
               name: "[name].[ext]",
-              outputPath: "styles/fonts",
+              outputPath: "static/styles/fonts",
             },
           },
         ],

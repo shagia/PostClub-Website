@@ -14,6 +14,10 @@ body {
   width: 100%;
 }
 
+.title {
+  text-transform: uppercase;
+}
+
 .transition-container {
   z-index: 2;
   display: block;
@@ -36,6 +40,8 @@ body {
   height: 80%;
 }
 .grid-container {
+  font-family: "AvantGardeGothicBold";
+  text-rendering: geometricPrecision;
   z-index: 2;
   position: relative;
   bottom: 100px;
@@ -54,7 +60,6 @@ body {
 }
 
 .artist-list {
-  font-family: "AvantGardeGothicBold";
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -72,6 +77,9 @@ body {
   bottom: 100px;
   z-index: 3;
   width: 100%;
+
+  font-family: "AvantGardeGothicBold";
+  text-rendering: geometricPrecision;
 }
 
 .flex-info-container > * {
