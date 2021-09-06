@@ -1,7 +1,49 @@
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Post Club @ Empire Control Room, Austin TX</title>
+    <meta
+      name="description"
+      content="Post Club at the Empire Control Room in Austin TX, with Doss, GRRL, Lila Tirando A Violeta and more"
+    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="twitter:title" content="Post Club" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@postclubatx" />
+    <meta
+      name="twitter:description"
+      content="Post Club at the Empire Control Room in Austin TX, with Doss, GRRL, Lila Tirando A Violeta and more"
+    />
+    <meta property="twitter:image" content="placeholder.jpg" />
+
+    <meta property="og:title" content="Post Club" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://postclub.party" />
+    <meta property="og:image" content="placeholder.jpg" />
+    <meta
+      property="og:description"
+      content="Post Club at the Empire Control Room in Austin TX, with Doss, GRRL, Lila Tirando A Violeta and more"
+    />
+
+    <!-- Fallback web clip icon for all devices -->
+    <link
+      rel="shortcut icon"
+      sizes="196x196"
+      href="/assets/images/icons/touch/chromeapp-touch-icon-196x196-precomposed.png"
+    />
+    <link
+      rel="shortcut icon"
+      href="/assets/images/icons/touch/fallback-touch-icon-57x57-precomposed.png"
+    />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/ico"
+      href="/assets/images/icons/icon-32x32.png"
+    />
 
     <link rel="preload" href="styles/fonts.css" as="style" />
     <link rel="preload" href="styles/main.css" as="style" />
@@ -52,7 +94,7 @@
       <a href="https://found.ee/Doss_Sept30"> <h1>Buy Tickets</h1></a>
     </div>
     <div class="covid-warning-container">
-      <h1>COVID19 Notice</h1>
+      <h1>COVID-19 Notice</h1>
       <p>
         A negative COVID-19 test result obtained within
         <i>72 hours of the event</i> will be <i>required</i> for entry. Patrons
@@ -106,11 +148,24 @@
   <footer class="footer-logo-container">
     <img id="footer-logo-src" src="" />
     <ul class="socials-container">
-      <li><a>Twitter</a></li>
-      <li><a>Instagram</a></li>
-      <li><a>Facebook</a></li>
+      <li>
+        <a href="https://twitter.com/postclubatx">
+          <img class="twitter-logo-src social-icon" src="" />
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/postclubatx/"
+          ><img class="instagram-logo-src social-icon" src=""
+        /></a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/postclubatx/"
+          ><img class="facebook-logo-src social-icon" src=""
+        /></a>
+      </li>
     </ul>
   </footer>
+  <!-- Raw loader doesn't properly translate these for some reason so they will have to exist on the markup, whatever -->
   <script id="heightmapFragmentShader" type="x-shader/x-fragment">
     #include <common>
     uniform vec2 mousePos;

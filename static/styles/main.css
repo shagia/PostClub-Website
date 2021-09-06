@@ -39,6 +39,7 @@ body {
 
 .canvas-container {
   height: 80%;
+  overflow-x: hidden;
 }
 
 .c1,
@@ -188,6 +189,21 @@ body {
 
 #footer-logo-src {
   width: 80px;
+  opacity: 0.2;
+}
+
+.socials-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0 0 0 30px;
+  padding: 0;
+}
+
+.social-icon {
+  width: 30px;
   opacity: 0.2;
 }
 
