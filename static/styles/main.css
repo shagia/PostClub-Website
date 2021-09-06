@@ -4,6 +4,7 @@ body {
   color: white;
   margin: 0;
   padding: 0;
+  font-size: 1rem;
 }
 
 #bg-water {
@@ -39,9 +40,40 @@ body {
 .canvas-container {
   height: 80%;
 }
+
+.c1,
+.c2,
+.c3,
+.c4 {
+  width: 100%;
+}
+
+.c1 {
+  color: #8e8e8e;
+}
+.c2 {
+  color: #dd341d;
+}
+.c3 {
+  color: #f893d9;
+}
+.c4 {
+  color: #cf9ef7;
+}
+
+.artist-list li a {
+  transition: all 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+}
+.artist-list li a:hover {
+  transition: all 0.2s ease;
+  color: white;
+}
 .grid-container {
-  font-family: "AvantGardeGothicBold";
+  font-family: "AvantGardeGothicBold", Arial, sans-serif;
   text-rendering: geometricPrecision;
+  text-align: left;
   z-index: 2;
   position: relative;
   bottom: 100px;
@@ -54,9 +86,18 @@ body {
   justify-items: center;
 }
 
+.grid-container .column {
+  max-width: 100%;
+}
+
 #mc_embed_signup {
   clear: left;
-  font: 14px Helvetica, Arial, sans-serif;
+  font: 14px "AvantGardeGothicBold", Arial, sans-serif;
+  margin: 2rem;
+}
+#mc_embed_signup_scroll {
+  display: flex;
+  flex-direction: row;
 }
 
 .artist-list {
@@ -78,8 +119,23 @@ body {
   z-index: 3;
   width: 100%;
 
-  font-family: "AvantGardeGothicBold";
+  font-family: "AvantGardeGothicBold", Arial, sans-serif;
   text-rendering: geometricPrecision;
+}
+
+#mce-EMAIL {
+  width: 100%;
+  font-family: "AvantGardeGothicBold", Arial, sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#mc-embedded-subscribe {
+  font-family: Arial, sans-serif;
+  font-weight: bolder;
+  padding: 10px;
+  height: 100%;
 }
 
 .flex-info-container > * {
@@ -91,11 +147,30 @@ body {
 }
 
 .ticket-host-container {
+  transition: all 0.2s ease;
   margin: 2rem;
-  padding: 1rem;
   border: 2px solid white;
   background-color: transparent;
   border-radius: 12px;
+}
+.ticket-host-container:hover {
+  transition: all 0.2s ease;
+  background-color: #e1ffdd;
+  color: black;
+}
+.ticket-host-container a {
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  text-decoration: none;
+  color: inherit;
+}
+.ticket-host-container h1 {
+  margin: 0;
 }
 .covid-warning-container {
   margin: 2rem;
@@ -105,12 +180,27 @@ body {
   border-radius: 12px;
 }
 
-@media only screen and (max-width: 1000px) {
+.footer-logo-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+#footer-logo-src {
+  width: 80px;
+  opacity: 0.2;
+}
+
+@media only screen and (max-width: 990px) {
+  :root,
+  body {
+    font-size: 0.85rem;
+  }
   .flex-info-container {
     flex-direction: column;
   }
   .grid-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;

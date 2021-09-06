@@ -16,37 +16,46 @@
     <div class="transition-container"></div>
   </div>
   <div class="grid-container">
-    <div class="column">
-      <h1 class="title">Post Club</h1>
+    <div class="column c1">
+      <h1 class="title">Post <br />Club</h1>
     </div>
-    <div class="column">
+    <div class="column c2">
       <h1>
         <ul class="artist-list">
-          <li>DOSS</li>
-          <li>GRRL</li>
+          <li><a href="https://www.doss.world/">DOSS</a></li>
+          <li><a href="https://soundcloud.com/grrl-music">GRRL</a></li>
           <li>
-            LILA TIRANDO<br />
-            <span class="spacing"></span>A VIOLETA
+            <a href="https://lilatirandoavioleta.bandcamp.com/">
+              LILA TIRANDO<br />
+              <span class="spacing"></span>A VIOLETA</a
+            >
           </li>
-          <li>ALPTRACK</li>
-          <li>ALEX DIAMOND</li>
-          <li>CATMELT</li>
+          <li><a href="https://soundcloud.com/alptrack">ALPTRACK</a></li>
+          <li>
+            <a href="https://soundcloud.com/diamonds4alex">ALEX DIAMOND</a>
+          </li>
+          <li><a href="https://soundcloud.com/catmelt">CATMELT</a></li>
         </ul>
       </h1>
     </div>
-    <div class="column"><h1>EMPIRE CONTROL ROOM</h1></div>
-    <div class="column"><h1>SEP 30</h1></div>
+    <div class="column c3">
+      <h1>
+        EMPIRE<br />
+        CONTROL<br />
+        ROOM
+      </h1>
+    </div>
+    <div class="column c4"><h1>SEP 30</h1></div>
   </div>
   <div class="flex-info-container">
     <div class="ticket-host-container">
-      <h1>Tickets available via See Tickets</h1>
-      <a href="https://found.ee/Doss_Sept30">Buy Tickets</a>
+      <a href="https://found.ee/Doss_Sept30"> <h1>Buy Tickets</h1></a>
     </div>
     <div class="covid-warning-container">
       <h1>COVID19 Notice</h1>
       <p>
         A negative COVID-19 test result obtained within
-        <b>72 hours of the event</b> will be <b>required</b> for entry. Patrons
+        <i>72 hours of the event</i> will be <i>required</i> for entry. Patrons
         who are fully vaccinated may show proof of full COVID-19 vaccination
         instead of proof of negative test.
       </p>
@@ -62,8 +71,8 @@
       target="_blank"
       novalidate
     >
+      <label for="mce-EMAIL"><h1>Stay Posted</h1></label>
       <div id="mc_embed_signup_scroll">
-        <label for="mce-EMAIL">Stay updated</label>
         <input
           type="email"
           value=""
@@ -85,7 +94,7 @@
         <div class="clear">
           <input
             type="submit"
-            value="Subscribe"
+            value="➞"
             name="subscribe"
             id="mc-embedded-subscribe"
             class="button"
@@ -94,6 +103,14 @@
       </div>
     </form>
   </div>
+  <footer class="footer-logo-container">
+    <img id="footer-logo-src" src="" />
+    <ul class="socials-container">
+      <li><a>Twitter</a></li>
+      <li><a>Instagram</a></li>
+      <li><a>Facebook</a></li>
+    </ul>
+  </footer>
   <script id="heightmapFragmentShader" type="x-shader/x-fragment">
     #include <common>
     uniform vec2 mousePos;
