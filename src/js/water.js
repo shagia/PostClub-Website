@@ -1,26 +1,40 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+//import * as THREE from "three";
+import * as THREE from "./three.js";
+
 import { SimplexNoise } from "./SimplexNoise.js";
-import * as WaterVertexShader from "./WaterVertexShader.vert";
-import * as HeightmapFragmentShader from "./heightmapFragmentShader.frag";
-import * as SmoothFragmentShader from "./smoothFragmentShader.frag";
-import { GPUComputationRenderer } from "gpucomputationrender-three";
+//import { OrbitControls } from "./OrbitControls";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
+//import * as WaterVertexShader from "./WaterVertexShader.vert";
+//import * as HeightmapFragmentShader from "./heightmapFragmentShader.frag";
+//import * as SmoothFragmentShader from "./smoothFragmentShader.frag";
+import { GPUComputationRenderer } from "./GPUComputationRenderer.js";
+
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+//import * as PosterImageSrc from "../img/front_poster.jpg";
+let PosterImageSrc = require("../img/front_poster.jpg");
 
 var hash = document.location.hash.substr(1);
 if (hash) hash = parseInt(hash, 0);
 
 // Texture width for simulation
-var WIDTH = hash || 128;
+var WIDTH = hash || 128 * 2;
 var NUM_TEXELS = WIDTH * WIDTH;
 
 // Water size in system units
-var BOUNDS = 512;
+var BOUNDS = 1024 * 2;
 var BOUNDS_HALF = BOUNDS * 0.5;
 
 var container, stats;
-var camera, scene, renderer, controls;
-var mouseMoved = false;
+var camera,
+  scene,
+  renderer,
+  controls,
+  posterPlane,
+  posterImage,
+  posterimgURL,
+  posterGeo;
+var mouseMoved = true;
 var mouseCoords = new THREE.Vector2();
 var raycaster = new THREE.Raycaster();
 
@@ -36,7 +50,7 @@ var simplex = new SimplexNoise();
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-export function change(n) {
+function change(n) {
   location.hash = n;
   location.reload();
   return false;
@@ -45,23 +59,25 @@ export function change(n) {
 init();
 animate();
 
-export function init() {
+function init() {
   /* container = document.createElement( 'div' );
 				document.body.appendChild( container ); */
 
+  var imageLoader = new THREE.TextureLoader();
+
   camera = new THREE.PerspectiveCamera(
-    55,
+    20,
     window.innerWidth / window.innerHeight,
     1,
     3000
   );
-  camera.position.set(0, 140, 0);
+  camera.position.set(0, 90, 400);
   /* maybe on credits or somethin else the y could zoom out to 740 and back */
   //originally 140
 
   scene = new THREE.Scene();
 
-  var sun = new THREE.DirectionalLight(0xffffff, 1.0);
+  var sun = new THREE.DirectionalLight(0xffffff, 1.5);
   sun.position.set(300, 400, 175);
   scene.add(sun);
 
@@ -69,20 +85,38 @@ export function init() {
   sun2.position.set(-100, 350, -200);
   scene.add(sun2);
 
+  posterimgURL = PosterImageSrc.default;
+  posterImage = new THREE.MeshBasicMaterial({
+    map: imageLoader.load(posterimgURL),
+    side: THREE.DoubleSide,
+  });
+  posterImage.map.minFilter = THREE.LinearFilter;
+  posterGeo = new THREE.PlaneGeometry(27, 50);
+  var posterMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffff00,
+    side: THREE.DoubleSide,
+  });
+  posterPlane = new THREE.Mesh(posterGeo, posterImage);
+  posterPlane.position.set(0, 50, 200);
+  posterPlane.rotation.set(0, 0, 0);
+  scene.add(posterPlane);
+
   renderer = new THREE.WebGLRenderer({
     canvas: document.getElementById("bg-water"),
-    antialias: false,
+    antialias: true,
   });
-  renderer.setClearColor(0xd7d7d7);
+  renderer.setClearColor(0x1c0122);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   /* container.appendChild( renderer.domElement ); */
-
   controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.enableRotate = false;
 
-  /*document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-				document.addEventListener( 'touchmove', onDocumentTouchMove, false );*/
+  document.addEventListener("mousemove", onDocumentMouseMove, false);
+  document.addEventListener("touchstart", onDocumentTouchStart, false);
+  document.addEventListener("touchmove", onDocumentTouchMove, false);
 
   document.addEventListener(
     "keydown",
@@ -115,8 +149,8 @@ export function init() {
   valuesChanger();
 }
 
-export function initWater() {
-  var materialColor = 0x78abd2;
+function initWater() {
+  var materialColor = 0x1c0122;
 
   var geometry = new THREE.PlaneBufferGeometry(
     BOUNDS,
@@ -133,7 +167,7 @@ export function initWater() {
         heightmap: { value: null },
       },
     ]),
-    vertexShader: WaterVertexShader,
+    vertexShader: document.getElementById("waterVertexShader").textContent,
     fragmentShader: THREE.ShaderChunk["meshphong_frag"],
   });
 
@@ -149,6 +183,7 @@ export function initWater() {
   material.uniforms.specular.value = material.specular;
   material.uniforms.shininess.value = Math.max(material.shininess, 1e-4);
   material.uniforms.opacity.value = material.opacity;
+  material.wireframe = true;
 
   // Defines
   material.defines.WIDTH = WIDTH.toFixed(1);
@@ -184,7 +219,7 @@ export function initWater() {
 
   heightmapVariable = gpuCompute.addVariable(
     "heightmap",
-    HeightmapFragmentShader,
+    document.getElementById("heightmapFragmentShader").textContent,
     heightmap0
   );
 
@@ -203,13 +238,16 @@ export function initWater() {
   }
 
   // Create compute shader to smooth the water surface and velocity
-  smoothShader = gpuCompute.createShaderMaterial(SmoothFragmentShader, {
-    texture: { value: SmoothFragmentShader },
-  });
+  smoothShader = gpuCompute.createShaderMaterial(
+    document.getElementById("smoothFragmentShader").textContent,
+    {
+      texture: { value: null },
+    }
+  );
 }
 
-export function fillTexture(texture) {
-  var waterMaxHeight = 10;
+function fillTexture(texture) {
+  var waterMaxHeight = 20;
 
   function noise(x, y, z) {
     var multR = waterMaxHeight;
@@ -241,7 +279,7 @@ export function fillTexture(texture) {
   }
 }
 
-export function smoothWater() {
+function smoothWater() {
   var currentRenderTarget =
     gpuCompute.getCurrentRenderTarget(heightmapVariable);
   var alternateRenderTarget =
@@ -256,7 +294,7 @@ export function smoothWater() {
   }
 }
 
-export function onWindowResize() {
+function onWindowResize() {
   windowHalfX = window.innerWidth / 1;
   windowHalfY = window.innerHeight / 1;
 
@@ -266,7 +304,7 @@ export function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-export function setMouseCoords(x, y) {
+function setMouseCoords(x, y) {
   mouseCoords.set(
     (x / renderer.domElement.clientWidth) * 2 - 1,
     -(y / renderer.domElement.clientHeight) * 2 + 1
@@ -274,40 +312,41 @@ export function setMouseCoords(x, y) {
   mouseMoved = true;
 }
 
-export function onDocumentMouseMove(event) {
+function onDocumentMouseMove(event) {
   setMouseCoords(event.clientX, event.clientY);
 }
 
-export function onDocumentTouchStart(event) {
+function onDocumentTouchStart(event) {
   if (event.touches.length === 1) {
-    event.preventDefault();
+    //event.preventDefault();
 
     setMouseCoords(event.touches[0].pageX, event.touches[0].pageY);
   }
 }
 
-export function onDocumentTouchMove(event) {
+function onDocumentTouchMove(event) {
   if (event.touches.length === 1) {
-    event.preventDefault();
+    //event.preventDefault();
 
     setMouseCoords(event.touches[0].pageX, event.touches[0].pageY);
   }
 }
 
-export function animate() {
+function animate() {
   requestAnimationFrame(animate);
+  posterPlane.rotation.y += 0.002;
   controls.update();
 
   render();
 }
 
-export function render() {
+function render() {
   // Set uniforms: mouse interaction
   var uniforms = heightmapVariable.material.uniforms;
   if (mouseMoved) {
-    this.raycaster.setFromCamera(mouseCoords, camera);
+    raycaster.setFromCamera(mouseCoords, camera);
 
-    var intersects = this.raycaster.intersectObject(meshRay);
+    var intersects = raycaster.intersectObject(meshRay);
 
     if (intersects.length > 0) {
       var point = intersects[0].point;
@@ -316,7 +355,7 @@ export function render() {
       uniforms.mousePos.value.set(10000, 10000);
     }
 
-    mouseMoved = false;
+    mouseMoved = true;
   } else {
     uniforms.mousePos.value.set(10000, 10000);
   }
