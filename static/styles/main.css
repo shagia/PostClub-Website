@@ -164,6 +164,7 @@ body {
   border: 2px solid white;
   background-color: transparent;
   border-radius: 12px;
+  max-height: max-content;
 }
 .ticket-host-container:hover {
   transition: all 0.2s ease;
@@ -186,7 +187,8 @@ body {
 }
 .covid-warning-container {
   margin: 2rem;
-  height: 220px;
+  height: 230px;
+  max-height: max-content;
   padding: 1rem;
   border: 2px solid white;
   background-color: transparent;
@@ -246,5 +248,6 @@ body {
   }
   .ticket-host-container a {
     padding: 20px 0 20px 0;
+    height: 100px;
   }
 }
