@@ -111,7 +111,7 @@ body {
 }
 
 .spacing {
-  margin-right: 40px;
+  margin-right: 35px;
 }
 
 .flex-info-container {
@@ -223,7 +223,6 @@ body {
 .facebook-logo-src {
   /* im lazy. i shouldnt have to deal with this anyway. why tf would facebook add blank margins to a logo? stop that */
   position: relative;
-  margin-top: -3px;
 }
 
 @media only screen and (max-width: 990px) {
