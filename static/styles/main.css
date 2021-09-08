@@ -102,6 +102,8 @@ body {
 #mc_embed_signup_scroll {
   display: flex;
   flex-direction: row;
+
+  height: 45px;
 }
 
 .artist-list {
@@ -131,6 +133,7 @@ body {
 
 #mce-EMAIL {
   width: 100%;
+  height: 45px;
   font-family: "AvantGardeGothicBold", Arial, sans-serif;
   font-size: 1rem;
   padding: 10px;
@@ -172,7 +175,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 230px;
   width: 100%;
 
   text-decoration: none;
@@ -183,6 +186,7 @@ body {
 }
 .covid-warning-container {
   margin: 2rem;
+  height: 220px;
   padding: 1rem;
   border: 2px solid white;
   background-color: transparent;
