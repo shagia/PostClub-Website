@@ -1,17 +1,9 @@
-//import * as THREE from "three";
 import * as THREE from "./three.js";
 
 import { SimplexNoise } from "./SimplexNoise.js";
-//import { OrbitControls } from "./OrbitControls";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-//import * as WaterVertexShader from "./WaterVertexShader.vert";
-//import * as HeightmapFragmentShader from "./heightmapFragmentShader.frag";
-//import * as SmoothFragmentShader from "./smoothFragmentShader.frag";
 import { GPUComputationRenderer } from "./GPUComputationRenderer.js";
-
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-//import * as PosterImageSrc from "../img/front_poster.jpg";
 let PosterImageSrc = require("../img/front_poster.jpg");
 
 var hash = document.location.hash.substr(1);
