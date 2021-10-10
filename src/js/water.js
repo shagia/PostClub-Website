@@ -4,7 +4,7 @@ import { SimplexNoise } from "./SimplexNoise.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { GPUComputationRenderer } from "./GPUComputationRenderer.js";
-let PosterImageSrc = require("../img/front_poster.jpg");
+let PosterImageSrc = require("../img/front_poster2.jpg");
 
 var hash = document.location.hash.substr(1);
 if (hash) hash = parseInt(hash, 0);
@@ -83,7 +83,7 @@ function init() {
     side: THREE.DoubleSide,
   });
   posterImage.map.minFilter = THREE.LinearFilter;
-  posterGeo = new THREE.PlaneGeometry(27, 50);
+  posterGeo = new THREE.PlaneGeometry(27, 40);
   var posterMaterial = new THREE.MeshBasicMaterial({
     color: 0xffff00,
     side: THREE.DoubleSide,
@@ -142,7 +142,7 @@ function init() {
 }
 
 function initWater() {
-  var materialColor = 0x1c0122;
+  var materialColor = 0x39112c;
 
   var geometry = new THREE.PlaneBufferGeometry(
     BOUNDS,
